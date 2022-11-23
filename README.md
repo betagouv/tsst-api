@@ -13,6 +13,7 @@ Cloner ce repo
 
 ```bash
 git clone https://github.com/betagouv/tsst-api.git
+cd tsst-api
 npm i
 cp .env.example .env
 ```
