@@ -25,7 +25,7 @@ Remplissez les valeurs du fichier `.env` avec votre base de données locale.
 ## Générer automatiquement une migration
 
 -   modifier un fichier `entity` (ex: ajouter une propriété `is_student` à `src/modules/users/entity/User.ts`)
--   s'assurer que l'entité est référencée dans `src/data-source.ts`
+-   s'assurer que l'entité est référencée dans `src/dataSource.ts`
 -   `npm run migration:generate --name=add-is-student-to-user`
 -   vérifier le contenu de la migration créée
 

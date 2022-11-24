@@ -8,9 +8,9 @@
         "start": "tsc && node dist/index.js",
         "startDev": "nodemon",
         "test": "jest",
-        "migration:generate": "tsc && typeorm migration:generate -d dist/data-source.js src/migration/$npm_config_name",
-        "migration:run": "tsc && typeorm migration:run -d dist/data-source.js",
-        "migration:rollback": "tsc && typeorm migration:revert -d dist/data-source.js"
+        "migration:generate": "tsc && typeorm migration:generate -d dist/dataSource.js src/migration/$npm_config_name",
+        "migration:run": "tsc && typeorm migration:run -d dist/dataSource.js",
+        "migration:rollback": "tsc && typeorm migration:revert -d dist/dataSource.js"
     },
     "author": "",
     "license": "ISC",

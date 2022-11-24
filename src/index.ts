@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 
 import { router } from './router';
 import { config } from './config';
-import { dataSource } from './data-source';
+import { dataSource } from './dataSource';
 
 async function runApp() {
     const app: Express = express();

@@ -1,4 +1,4 @@
-import { dataSource } from '../../../data-source';
+import { dataSource } from '../../../dataSource';
 import { userDto } from '../controller';
 import { User } from '../entity';
 
