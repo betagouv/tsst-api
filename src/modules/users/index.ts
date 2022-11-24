@@ -1,4 +1,4 @@
 import { User } from './entity';
-import { userService } from './service';
+import { userController } from './controller';
 
-export { User, userService };
+export { User, userController };
