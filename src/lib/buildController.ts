@@ -2,9 +2,9 @@ import { Request, Response } from 'express';
 
 export { buildController };
 
-type routeType<T> = { kind: 'success'; data: T } | { kind: 'error'; message: string; statusCode: number };
+type routeType = { kind: 'success'; data: any } | { kind: 'error'; message: string; statusCode: number };
 
-function buildController<bodyT, dataT>(controller: (body: bodyT) => routeType<dataT> | Promise<routeType<dataT>>) {
+function buildController<bodyT>(controller: (body: bodyT) => routeType | Promise<routeType>) {
     return async (req: Request, res: Response) => {
         try {
             const result = await controller(req.body);

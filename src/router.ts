@@ -10,11 +10,4 @@ router.get('/', (_: Request, res: Response) => {
     res.sendStatus(200);
 });
 
-router.post(
-    '/users',
-    buildController(async (body) => {
-        const users = body as any;
-
-        return userService.insertManyUsers(users);
-    }),
-);
+router.post('/users', buildController(userService.insertManyUsers));

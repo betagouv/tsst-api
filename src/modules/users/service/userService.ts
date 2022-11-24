@@ -1,6 +1,6 @@
 import { dataSource } from '../../../dataSource';
-import { userDto } from '../controller';
 import { User } from '../entity';
+import { userDto } from './types';
 
 export { userService };
 
