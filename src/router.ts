@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import { userService } from './modules/users';
 
 export { router };
 
@@ -8,7 +9,10 @@ router.get('/', (req: Request, res: Response) => {
     res.send('Express + TypeScript Server');
 });
 
-router.post('/users', (req: Request, res: Response) => {
-    console.log(req.body);
-    res.sendStatus(200);
+router.post('/users', async (req: Request, res: Response) => {
+    const users = req.body;
+
+    const result = await userService.insertManyUsers(users);
+
+    res.send(result);
 });

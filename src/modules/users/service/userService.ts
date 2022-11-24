@@ -1,12 +1,17 @@
 import { dataSource } from '../../../data-source';
+import { userDto } from '../controller';
 import { User } from '../entity';
 
 export { userService };
 
 const userService = { insertManyUsers };
 
-async function insertManyUsers(users: User[]) {
+async function insertManyUsers(userDtos: userDto[]) {
     const userRepository = dataSource.getRepository(User);
 
-    return userRepository.insert(users);
+    const users = userDtos.map((userDto) => ({ encryptedEmail: userDto.email }));
+
+    const result = await userRepository.insert(users);
+
+    return { inserted: result.raw.length };
 }
