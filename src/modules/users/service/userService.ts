@@ -13,5 +13,5 @@ async function insertManyUsers(userDtos: userDto[]) {
 
     const result = await userRepository.insert(users);
 
-    return { inserted: result.raw.length };
+    return { kind: 'success' as const, data: { inserted: result.raw.length } };
 }
