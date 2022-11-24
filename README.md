@@ -7,7 +7,7 @@ L'application web développée dans le cadre de la phase d'investigation de la s
 -   npm v14
 -   node v16
 
-# Installation locale
+# Installation
 
 Cloner ce repo
 
@@ -18,6 +18,23 @@ cp .env.example .env
 ```
 
 Remplissez les valeurs du fichier `.env` avec votre base de données locale.
+
+# Migrations
+
+## Générer automatiquement une migration
+
+-   modifier un fichier `entity` (ex: ajouter une propriété `is_student` à `src/modules/users/entity/User.ts`)
+-   s'assurer que l'entité est référencée dans `src/data-source.ts`
+-   `npm run migration:generate --name=add-is-student-to-user`
+-   vérifier le contenu de la migration créée
+
+## Appliquer une migration
+
+`npm run migration:run`
+
+## Annuler la dernière migration
+
+`npm run migration:rollback`
 
 # Lancer le projet localement
 
