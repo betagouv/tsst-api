@@ -1,7 +1,6 @@
 import { config } from './config';
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { User } from './modules';
 
 export const dataSource = new DataSource({
     type: 'postgres',
