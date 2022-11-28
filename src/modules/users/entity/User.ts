@@ -7,4 +7,7 @@ export class User {
 
     @Column({ unique: true })
     encryptedEmail: string;
+
+    @Column({ type: 'date', nullable: true })
+    studiesExpirationDate: Date;
 }
