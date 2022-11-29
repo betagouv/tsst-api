@@ -23,14 +23,14 @@ describe('checkCriteria', () => {
     };
 
     test('should return true for user1', () => {
-        expect(checkCriteria(rule, user1)).toBe(true);
+        expect(checkCriteria(user1)).toBe(true);
     });
 
     test('should return true for user2', () => {
-        expect(checkCriteria(rule, user2)).toBe(true);
+        expect(checkCriteria(user2)).toBe(true);
     });
 
     test('should return true for user3', () => {
-        expect(checkCriteria(rule, user3)).toBe(false);
+        expect(checkCriteria(user3)).toBe(false);
     });
 });

@@ -1,37 +1,25 @@
-import { userType, ruleType } from "./types"
+import { userType, ruleType } from './types';
+import Engine from 'publicodes';
+import { parse } from 'yaml';
 
-export { checkCriteria }
+export { checkCriteria };
 
-function checkCriteria(rule: ruleType, user: userType): boolean {
-    switch (rule.kind) {
-        case "operator":
-            switch (rule.value) {
-                case "AND":
-                    return rule.elements.reduce((acc, element) => checkCriteria(element, user) && acc, true);
-                case "OR":
-                    return rule.elements.reduce((acc, element) => checkCriteria(element, user) || acc, false);
-            }
-        case "variable":
-            const value = (user as any)[rule.name]
-            if (value == undefined) {
-                return false
-            }
-            switch (rule.criterion.kind) {
-                case "boolean":
-                    return value == rule.criterion.value;
-                case "formula":
-                    switch (rule.criterion.comparator) {
-                        case "<":
-                            return value < rule.criterion.value
-                        case ">":
-                            return value > rule.criterion.value
-                        case "<=":
-                            return value <= rule.criterion.value
-                        case ">=":
-                            return value >= rule.criterion.value
-                        case "==":
-                            return value == rule.criterion.value
-                    }
-            }
-    }
+const rules = `
+pass navigo gratuit par idf mobilites:
+  une de ces conditions:
+    - est chomeur
+    - toutes ces conditions:
+      - age >= 18
+      - age <= 26
+`;
+
+function checkCriteria(user: userType) {
+    const parsedRules = parse(rules);
+
+    const engine = new Engine({
+        ...parsedRules,
+        age: user.age,
+        'est chomeur': user.is_unemployed ? 'oui' : 'non',
+    });
+    return engine.evaluate('pass navigo gratuit par idf mobilites').nodeValue;
 }
