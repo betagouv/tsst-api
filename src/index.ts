@@ -5,6 +5,7 @@ import { dataSource } from './dataSource';
 async function runApp() {
     try {
         await dataSource.initialize();
+        await dataSource.runMigrations();
     } catch (error) {
         console.error(error);
     }
