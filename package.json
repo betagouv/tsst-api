@@ -4,13 +4,14 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "build": "rm -rf dist && tsc",
         "lint:fix": "eslint --fix",
-        "start": "tsc && node dist/index.js",
+        "start": "npm run build && node dist/index.js",
         "startDev": "nodemon",
         "test": "jest",
-        "migration:generate": "tsc && typeorm migration:generate -d dist/dataSource.js src/migration/$npm_config_name",
-        "migration:run": "tsc && typeorm migration:run -d dist/dataSource.js",
-        "migration:rollback": "tsc && typeorm migration:revert -d dist/dataSource.js"
+        "migration:generate": "npm run build && typeorm migration:generate -d dist/dataSource.js src/migration/$npm_config_name",
+        "migration:run": "npm run build && typeorm migration:run -d dist/dataSource.js",
+        "migration:rollback": "npm run build && typeorm migration:revert -d dist/dataSource.js"
     },
     "author": "",
     "license": "ISC",
