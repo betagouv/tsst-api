@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+    app:
+        restart: unless-stopped
+        build: .
+        ports:
+            - '${PORT}:${PORT}'
+        volumes:
+            - .:/app
+            - /app/node_modules/
+        environment:
+            - PORT=${PORT}
+            - DATABASE_USER=${DATABASE_USER}
+            - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+            - DATABASE_NAME=${DATABASE_NAME}
+            - DATABASE_HOST=db
+    db:
+        image: postgres:14
+        ports:
+            - '${DATABASE_PORT}:5432'
+        volumes:
+            - data:/data/db
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=tsst-api
+            - POSTGRES_PORT=5432
+
+volumes:
+    data: {}
