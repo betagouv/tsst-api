@@ -1,3 +1,4 @@
 import { User } from './users';
+import { ApiKey } from './apiKeys';
 
-export { User };
+export { ApiKey, User };
