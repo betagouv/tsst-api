@@ -1,7 +1,7 @@
-import express, { Express } from 'express';
-import { describe, it, expect, test } from '@jest/globals';
+import { describe, it, expect } from '@jest/globals';
 import request from 'supertest';
 import { buildApp } from './app';
+import { config } from './config';
 
 const app = buildApp();
 
@@ -10,9 +10,9 @@ describe('POST /users', function () {
         const response = await request(app)
             .post('/api/users')
             .send([{ email: 'test@example.com' }])
-            .set('Accept', 'application/json');
-        console.log(response.statusCode);
-        console.log(response.text);
+            .set('Accept', 'application/json')
+            .set('x-api-key-id', config.LOCAL_API_KEY_ID || '')
+            .set('x-api-key', config.LOCAL_API_KEY || '');
 
         expect(response.statusCode).toBe(200);
         expect(JSON.parse(response.text)['inserted']).toBe(1);
