@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import pgConnectionString from 'pg-connection-string';
 
 switch (process.env.NODE_ENV) {
     case 'test':
@@ -6,6 +7,17 @@ switch (process.env.NODE_ENV) {
         break;
     default:
         dotenv.config();
+}
+
+let databaseConfig: Record<string, string> = {};
+
+if (process.env.DATABASE_URL) {
+    const infos = pgConnectionString.parse(process.env.DATABASE_URL);
+    databaseConfig.DATABASE_PORT = infos.port || '';
+    databaseConfig.DATABASE_HOST = infos.host || '';
+    databaseConfig.DATABASE_NAME = infos.database || '';
+    databaseConfig.DATABASE_USER = infos.user || '';
+    databaseConfig.DATABASE_PASSWORD = infos.password || '';
 }
 
 const config = {
@@ -17,6 +29,7 @@ const config = {
     DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
     LOCAL_API_KEY_ID: process.env.LOCAL_API_KEY_ID,
     LOCAL_API_KEY: process.env.LOCAL_API_KEY,
+    ...databaseConfig,
 };
 
 export { config };
