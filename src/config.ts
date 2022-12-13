@@ -15,6 +15,8 @@ const config = {
     DATABASE_NAME: process.env.DATABASE_NAME || '',
     DATABASE_USER: process.env.DATABASE_USER || '',
     DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
+    LOCAL_API_KEY_ID: process.env.LOCAL_API_KEY_ID,
+    LOCAL_API_KEY: process.env.LOCAL_API_KEY,
 };
 
 export { config };
