@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
+import Joi from 'joi';
 import moment from 'moment';
 import { dataSource } from '../dataSource';
 import { ApiKey } from '../modules';
@@ -13,7 +14,10 @@ type routeType =
     | { kind: 'success'; data: any }
     | { kind: 'error'; message: string; statusCode: number };
 
-function buildController<bodyT>(controller: (body: bodyT) => routeType | Promise<routeType>) {
+function buildController<bodyT>(
+    controller: (body: bodyT) => routeType | Promise<routeType>,
+    options?: { schema?: Joi.Schema },
+) {
     return async (req: Request, res: Response) => {
         try {
             await checkAuthentication(req);
@@ -21,6 +25,13 @@ function buildController<bodyT>(controller: (body: bodyT) => routeType | Promise
             console.error(error);
             res.sendStatus(httpStatus.UNAUTHORIZED);
             return;
+        }
+        if (options?.schema) {
+            const { error } = options.schema.validate(req.body);
+            if (error) {
+                res.status(httpStatus.BAD_REQUEST).send(error.message);
+                return;
+            }
         }
 
         try {
